@@ -1492,7 +1492,29 @@ func main() {
 func sum(n1 int, n2 int) (int, string) {
 	var result int = n1 + n2
 	return result, fmt.Sprintf("總和=%d", result)
-}`,output:`7 總和=7`,pitfalls:["不需要的回傳值用 `_` 丟掉：`r, _ := sum(3, 4)`。","多回傳最常見的用法是 `value, err := ...`，之後學錯誤處理會一直看到。"]},{id:`point`,title:`指標：& 與 *`,source:`point/`,date:`2026-09-30`,tags:[`指標`,`函式`],summary:`用指標讓函式能修改外面的變數（pass by pointer）。`,points:["`&w`：取得變數 `w` 的**記憶體位址**。","`*string`：「指向 string 的指標」這個型別，例如 `var wPtr *string = &w`。","`*wPtr`：**反解（dereference）**，透過位址拿到 / 修改原本的值。",`**Pass by value**：一般參數傳的是副本，函式內改了，外面不會變。`,"**Pass by pointer**：傳入位址 `add2(&a)`，函式內用 `*xPtr += 1` 就能改到外面的 `a`。","`fmt.Scanln(&msg)` 就是 pass by pointer 的實例。"],code:`package main
+}`,output:`7 總和=7`,pitfalls:["不需要的回傳值用 `_` 丟掉：`r, _ := sum(3, 4)`。","多回傳最常見的用法是 `value, err := ...`，之後學錯誤處理會一直看到。"]},{id:`struct`,title:`結構體：struct`,source:`struct/`,date:`2026-09-30`,tags:[`型別`,`struct`],summary:`用 struct 把相關資料欄位組合成一個自訂型別。`,points:["`type Student struct { ... }` 宣告一個包含多個欄位的自訂型別。",'建立值時可用 `Student{Name: "小明", Age: 18}`，欄位名稱和值以冒號配對。',"用點號存取或修改欄位，例如 `student.Name`、`student.Age++`。",`結構體值可以直接指定給變數；這個例子不需要指標。`],code:`package main
+
+import "fmt"
+
+type Student struct {
+	Name string
+	Age  int
+}
+
+func main() {
+	student := Student{
+		Name: "小明",
+		Age:  18,
+	}
+
+	fmt.Println("姓名:", student.Name)
+	fmt.Println("年齡:", student.Age)
+
+	student.Age++
+	fmt.Println("明年年齡:", student.Age)
+}`,output:`姓名: 小明
+年齡: 18
+明年年齡: 19`,pitfalls:[`建立結構體值時，欄位名稱要和定義中的欄位一致，型別也要相符。`,"存取欄位使用 `.`，不是指標用的 `*`。"]},{id:`point`,title:`指標：& 與 *`,source:`point/`,date:`2026-09-30`,tags:[`指標`,`函式`],summary:`用指標讓函式能修改外面的變數（pass by pointer）。`,points:["`&w`：取得變數 `w` 的**記憶體位址**。","`*string`：「指向 string 的指標」這個型別，例如 `var wPtr *string = &w`。","`*wPtr`：**反解（dereference）**，透過位址拿到 / 修改原本的值。",`**Pass by value**：一般參數傳的是副本，函式內改了，外面不會變。`,"**Pass by pointer**：傳入位址 `add2(&a)`，函式內用 `*xPtr += 1` 就能改到外面的 `a`。","`fmt.Scanln(&msg)` 就是 pass by pointer 的實例。"],code:`package main
 
 import "fmt"
 
