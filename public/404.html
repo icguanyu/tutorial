@@ -7,7 +7,7 @@
       // GitHub Pages 遇到未知路由會回傳這個 404.html
       // 這裡把路徑編碼成 query string，再導回 index.html
       // index.html 裡的腳本會把路徑還原，讓 BrowserRouter 正常處理
-      var pathSegmentsToKeep = 1; // /react-app-tutorial/ 算 1 段
+      var pathSegmentsToKeep = 1; // GitHub Pages 專案網址的 repo 名稱算 1 段
       var l = window.location;
       l.replace(
         l.protocol +
